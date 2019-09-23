@@ -1,0 +1,27 @@
+os: linux
+dist: xenial
+language: python
+python: 3.7
+
+install: pip install -e ".[test]"
+script: pytest --cov=srtm4 --cov-report term-missing .
+
+jobs:
+  include:
+    - stage: test
+    - stage: test
+      python: 2.7
+
+    - stage: deploy
+      if: tag IS present AND repo = glostis/srtm4
+      install: skip
+      script: skip
+      deploy:
+        - provider: pypi
+          user: glostis
+          password:
+            secure: "Qzr3y8Oas8dOUPZ7kgrli77nWBUWbzQqOSkis1dSHCwvdNQDpXK9iV1tsA09c57SWSuytQMWdTVRUYEtRcoSJb8MfkW+4K/89X+WJgtwgqjnyJ1QPHMjUmtoCfDjMBfhFEu+eEX81qVRC0ogO1UgHIC0Rza4b413Wbgdn2JgsH30MiMcHt2BZURl0dC73sVldsgjW8dlXtlvAlK1EWA9wJf2wVnbPAIs4TaZ6zlhcRjGv4rdjkzvrde/CFBzO3uBASNlu0gyqmWLC3t8NxgzLiu+WjMJywebyd7I9oYooWYYqao1pDWe/QVhuMwEwnijFAYkrNAK/QjpJp2HB3UQadjWLe5hWd7l6+KNlhHeu/Xgaoif9w+Dps2XSeO4Q4QDwOxU/EtK0kP9/T7qZCNAlx/LbLnESI6KTcj+Y56h0GImTSXpps9EqlamhgtCb4XifUiKvNJO7Uc7WljGUIpCDLl0L3FZp2V7XjOTz2cH+yPCMBnrzy51GHClArZ8bDdxdCKoXfGZOtVP/9CsQnucWSJ5s7Tdfhpbglb89iDYS6+sLXM0Gyn2+LX8R2NL+vfstXtkvuGn9kTHARwJmxNQzkywjy4R2KOcI4qdnb6Tue3OuzCo0BGgNyAsMeZezGNJwDy1PubTkrTDV86lCS1iEWw2UQMsKGgYYZhw9x8P72M="
+          server: https://test.pypi.org/legacy/
+          distributions: sdist
+          on:
+            tags: true
