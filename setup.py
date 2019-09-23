@@ -33,7 +33,7 @@ requirements = ['filelock',
                 'numpy',
                 'requests']
 
-extra_requires = {'test': ['pytest', 'pytest-cov']}
+extras_require = {'test': ['pytest', 'pytest-cov']}
 
 setup(name="test-srtm4",
       version="0.0.1",
@@ -45,7 +45,7 @@ setup(name="test-srtm4",
       author_email='carlo.de-franchis@ens-cachan.fr',
       py_modules=['srtm4'],
       install_requires=requirements,
-      extra_requires=extra_requires,
+      extras_require=extras_require,
       cmdclass={'develop': CustomDevelop,
                 'build_py': CustomBuildPy},
       include_package_data=True,
